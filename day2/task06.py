@@ -17,7 +17,7 @@ URLS = (
 
 async def get_response_status(url: str) -> int:
     async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
+        async with session.get(url, ssl=False) as response:
             return response.status
 
 
