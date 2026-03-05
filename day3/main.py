@@ -58,7 +58,10 @@ async def update_book(book_id: int, book: Book) -> Book:
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Book not found",
         )
-    books_db[book_id] = book
+    # books_db[book_id] = book
+    book = book.model_dump(exclude_unset=True)
+    for k, v in book.items():
+        setattr(books_db[book_id], k, v)
     return books_db[book_id]
 
 
