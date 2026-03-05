@@ -6,5 +6,9 @@ class BookSchema(BaseModel):
     author: str | None = None
 
 
-class BookGetSchema(BookSchema):
+class BookSelSchema(BookSchema):
     id: int
+
+
+class BookUpdSchema(BookSchema):
+    title: str | None = None
