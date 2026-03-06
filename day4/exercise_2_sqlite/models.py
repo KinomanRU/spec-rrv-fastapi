@@ -2,7 +2,11 @@ import asyncio
 
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String
+
 from db import engine
+
+# For Alembic migrations
+# from exercise_2_sqlite.db import engine
 
 
 class Base(DeclarativeBase):
