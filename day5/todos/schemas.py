@@ -1,0 +1,45 @@
+from pydantic import BaseModel, ConfigDict, Field
+
+
+class TodoRequest(BaseModel):
+    title: str = Field(min_length=3)
+    description: str = Field(min_length=3, max_length=100)
+    priority: int = Field(gt=0, lt=6)
+    complete: bool = False
+
+
+class BaseUser(BaseModel):
+    email: str
+    username: str
+    first_name: str | None = None
+    last_name: str | None = None
+    is_active: bool = True
+    role: str | None = None
+    phone_number: str | None = None
+
+
+class CreateUserRequest(BaseUser):
+    password: str
+
+
+class UserResponse(BaseUser):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+
+
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+
+class TodoResponse(TodoRequest):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    owner_id: int
+
+
+class TodoUpdate(TodoRequest):
+    title: str | None = Field(min_length=3, default=None)
+    description: str | None = Field(min_length=3, max_length=100, default=None)
+    priority: int | None = Field(gt=0, lt=6, default=None)
+    complete: bool | None = None
