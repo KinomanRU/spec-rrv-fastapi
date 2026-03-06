@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, update
@@ -15,7 +16,7 @@ async def create_book(
     session: AsyncSession = Depends(get_session),
 ):
     """Add book"""
-    new_book = BookModel(**book.dict())
+    new_book = BookModel(**book.model_dump(exclude_unset=True))
     session.add(new_book)
     await session.commit()
     return new_book
