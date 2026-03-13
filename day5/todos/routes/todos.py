@@ -24,11 +24,11 @@ async def create_todo(
     session: db_dependency,
 ):
     """Add todo"""
-    new_book = TodoModel(**todo.model_dump(exclude_unset=True))
-    new_book.owner_id = (await login_user(session, Request)).id
-    session.add(new_book)
+    new_todo = TodoModel(**todo.model_dump(exclude_unset=True))
+    new_todo.owner_id = (await login_user(session, Request)).id
+    session.add(new_todo)
     await session.commit()
-    return new_book
+    return new_todo
 
 
 @router.get(
