@@ -42,8 +42,8 @@ async def create_user(session: db_dependency, user_data: CreateUserRequest = Bod
     password = user_dict.pop("password")
     print(f"{password=}")
     print(f"{len(password)=}")
-    # hashed_password = bcrypt_context.hash(password[:72])
-    # user_dict["hashed_password"] = hashed_password
+    hashed_password = bcrypt_context.hash(password)
+    user_dict["hashed_password"] = hashed_password
     user_model = Users(**user_dict)
     session.add(user_model)
     await session.commit()
